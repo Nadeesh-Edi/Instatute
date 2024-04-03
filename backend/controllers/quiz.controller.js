@@ -40,7 +40,7 @@ const getAllQuizes = asyncHandler(async (req, res) => {
 
 // Get quiz by creator
 const getQuizByCreator = asyncHandler(async (req, res) => {
-  const { id } = req.params;
+  const id = req.user_id;
 
   // Id request validation
   if (!id) return res.status(404).send("Id not found");
