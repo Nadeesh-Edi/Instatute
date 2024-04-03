@@ -1,5 +1,6 @@
 import asyncHandler from "express-async-handler";
 import bcrypt from "bcrypt";
+import jwt from 'jsonwebtoken'
 
 import Users from "../models/user.model.js";
 
@@ -57,7 +58,9 @@ const login = asyncHandler(async (req, res) => {
   bcrypt.compare(password, user.password, function (err, result) {
     if (err) return res.status(500).send(err);
     if (result) {
-      return res.status(200).json(user);
+      const token = generateToken(user)
+      let param = { token: token, user_type: user.user_type, id: user._id }
+      return res.status(200).json(param);
     } else {
       return res.status(501).send("Incorrect password");
     }
@@ -116,4 +119,15 @@ const deleteUser = asyncHandler(async (req, res) => {
   }
 });
 
+// Generate Token
+const generateToken = (user) => {
+  const jwtSecretKey = process.env.JWT_SECRET_KEY
+  const data = {
+    _id: user._id,
+    user_type: user.user_type
+  }
+
+  const token = jwt.sign(data, jwtSecretKey);
+  return token;
+}
 export { createNewUser, login, editUser, deleteUser };
