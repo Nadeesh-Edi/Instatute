@@ -1,6 +1,4 @@
 import mongoose from "mongoose";
-// import Questions from "./quiz.question.model";
-import QuizQuestion from "./quiz.question.model.js";
 
 const quizSchema = mongoose.Schema({
     title: {
@@ -13,7 +11,10 @@ const quizSchema = mongoose.Schema({
                 type: String
             },
             answers: {
-                type: String
+                type: [String] || [Number]
+            },
+            correctAnswerIndex: {
+                type: Number
             }
         }],
         required: true
