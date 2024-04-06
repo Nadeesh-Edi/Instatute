@@ -38,6 +38,7 @@ Coded by www.creative-tim.com
 // Material Dashboard 2 React layouts
 import Tables from "layouts/tables";
 import SignIn from "layouts/authentication/sign-in";
+import CreateQuiz from "layouts/quiz/createQuiz";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -50,6 +51,14 @@ const routes = [
     icon: <Icon fontSize="small">table_view</Icon>,
     route: "/tables",
     component: <Tables />,
+  },
+  {
+    type: "collapse",
+    name: "CreateQuiz",
+    key: "createQuiz",
+    icon: <Icon fontSize="small">quiz</Icon>,
+    route: "/createQuiz",
+    component: <CreateQuiz />,
   },
   {
     type: "collapse",
