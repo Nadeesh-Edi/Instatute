@@ -44,7 +44,7 @@ import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 
 // Material Dashboard 2 React routes
-import routes from "routes";
+import { studentRoutes, staffRoutes, defaultRoutes } from "routes";
 
 // Material Dashboard 2 React contexts
 import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context";
@@ -68,6 +68,11 @@ export default function App() {
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const [rtlCache, setRtlCache] = useState(null);
   const { pathname } = useLocation();
+  const routes = localStorage.getItem("token")
+    ? localStorage.getItem("type") == 1
+      ? staffRoutes
+      : studentRoutes
+    : defaultRoutes;
 
   // Cache for the rtl
   useMemo(() => {

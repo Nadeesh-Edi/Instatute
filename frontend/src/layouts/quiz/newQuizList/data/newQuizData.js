@@ -53,7 +53,7 @@ export default function data() {
   const getRow = (row) => {
     return {
       quiz: <Quiz title={row.title} description={row.description} />,
-      createdBy: <CreatedBy title={row.createdBy} description="Organization" />,
+      createdBy: <CreatedBy title={row.createdBy.name} description={row.createdBy.role} />,
       deadline: (
         <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
           {moment(row.deadline).format("MMM Do YYYY")}

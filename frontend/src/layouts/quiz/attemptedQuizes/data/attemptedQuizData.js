@@ -66,7 +66,6 @@ export default function data() {
   const getRow = (row) => {
     return {
       quiz: <Quiz title={row.quiz} description={row.description} />,
-      createdBy: <CreatedBy title={row.createdBy} description="Organization" />,
       attemptedOn: (
         <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
           {moment(row.createdAt).format("MMM Do YYYY")}
@@ -90,10 +89,9 @@ export default function data() {
 
   return {
     columns: [
-      { Header: "quiz", accessor: "quiz", width: "40%", align: "left" },
-      { Header: "created by", accessor: "createdBy", align: "left" },
-      { Header: "attempted on", accessor: "attemptedOn", align: "center" },
+      { Header: "quiz", accessor: "quiz", width: "30%", align: "left" },
       { Header: "results", accessor: "results", align: "center" },
+      { Header: "attempted on", accessor: "attemptedOn", align: "center" },
     ],
 
     rows: data.map((item) => {

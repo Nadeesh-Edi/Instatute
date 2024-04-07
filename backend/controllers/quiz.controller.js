@@ -5,7 +5,7 @@ import Users from "../models/user.model.js"
 
 // Create Quiz
 const createQuiz = asyncHandler(async (req, res) => {
-  const { title, questions, createdBy, timePeriod, deadline } = req.body;
+  const { title, questions, createdBy, timePeriod, deadline, description } = req.body;
 
   try {
     const quiz = new Quizes({
@@ -14,6 +14,7 @@ const createQuiz = asyncHandler(async (req, res) => {
       createdBy,
       timePeriod,
       deadline,
+      description
     });
     quiz
       .save()
@@ -95,12 +96,12 @@ const deleteQuiz = asyncHandler(async (req, res) => {
 });
 
 const getResponseModel = async (quiz) => {
-  let newQuiz = quiz;
+  let newQuiz = quiz.toObject();
   newQuiz.questions.forEach((item) => {
     delete item.correctAnswerIndex;
   });
   const createdBy = await Users.findById(newQuiz.createdBy);
-  newQuiz.createdBy = createdBy.name;
+  newQuiz.createdBy = { name: createdBy.name, role: createdBy.role };
 
   return newQuiz;
 };

@@ -8,7 +8,7 @@ const SALT_ROUNDS = 10;
 
 // Create new User
 const createNewUser = asyncHandler(async (req, res) => {
-  const { name, email, password, user_type } = req.body;
+  const { name, email, password, user_type, role, age, sex } = req.body;
   let hashedPwrd = "";
 
   // Check if a user already exists for the given email
@@ -28,6 +28,9 @@ const createNewUser = asyncHandler(async (req, res) => {
     user_type,
     email,
     password: hashedPwrd,
+    role, 
+    age, 
+    sex
   });
 
   try {
@@ -69,7 +72,7 @@ const login = asyncHandler(async (req, res) => {
 
 // Edit user
 const editUser = asyncHandler(async (req, res) => {
-  const { id, name, email, password, user_type } = req.body;
+  const { id, name, email, password, user_type, role, age, sex } = req.body;
   let hashedPwrd = "";
 
   const user = await Users.findById(id);
@@ -86,7 +89,7 @@ const editUser = asyncHandler(async (req, res) => {
   try {
     const updated = await Users.updateOne(
       { _id: id },
-      { name, email, password: hashedPwrd, user_type }
+      { name, email, password: hashedPwrd, user_type, role, age, sex }
     );
     console.log(updated);
 

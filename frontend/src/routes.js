@@ -43,7 +43,8 @@ import CreateQuiz from "layouts/quiz/createQuiz";
 import NewQuizList from "layouts/quiz/newQuizList";
 import AttemptedQuizList from "layouts/quiz/attemptedQuizes";
 
-const routes = [
+// Student Routes
+const studentRoutes = [
   {
     type: "collapse",
     name: "Tables",
@@ -51,14 +52,6 @@ const routes = [
     icon: <Icon fontSize="small">table_view</Icon>,
     route: "/tables",
     component: <Tables />,
-  },
-  {
-    type: "collapse",
-    name: "Create Quiz",
-    key: "createQuiz",
-    icon: <Icon fontSize="small">quiz</Icon>,
-    route: "/createQuiz",
-    component: <CreateQuiz />,
   },
   {
     type: "collapse",
@@ -76,6 +69,38 @@ const routes = [
     route: "/attemptedQuizList",
     component: <AttemptedQuizList />,
   },
+];
+
+// Routes for stafff members
+const staffRoutes = [
+  {
+    type: "collapse",
+    name: "Tables",
+    key: "tables",
+    icon: <Icon fontSize="small">table_view</Icon>,
+    route: "/tables",
+    component: <Tables />,
+  },
+  {
+    type: "collapse",
+    name: "Create Quiz",
+    key: "createQuiz",
+    icon: <Icon fontSize="small">quiz</Icon>,
+    route: "/createQuiz",
+    component: <CreateQuiz />,
+  },
+];
+
+// Routes for default
+const defaultRoutes = [
+  {
+    type: "collapse",
+    name: "Tables",
+    key: "tables",
+    icon: <Icon fontSize="small">table_view</Icon>,
+    route: "/tables",
+    component: <Tables />,
+  },
   {
     type: "collapse",
     name: "Sign In",
@@ -86,4 +111,4 @@ const routes = [
   },
 ];
 
-export default routes;
+export { studentRoutes, staffRoutes, defaultRoutes };
