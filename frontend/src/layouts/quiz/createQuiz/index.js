@@ -29,6 +29,7 @@ function CreateQuiz() {
   const [isDisabled, setIsDisabled] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  // For error alert
   const [showError, setShowError] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
