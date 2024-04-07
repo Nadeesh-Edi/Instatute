@@ -8,8 +8,14 @@ import { getCreatedQuizes } from "network/networkCalls";
 import ShowErrorAlert from "network/errorAlert";
 import MDButton from "components/MDButton";
 
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { setSelectedQuiz } from "store/selectedQuiz/selectedQuizSlice";
+
 export default function data() {
   const [data, setData] = useState([]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const showErrorAlert = (msg) => {
     alert(msg);
@@ -26,8 +32,10 @@ export default function data() {
       });
   }, []);
 
-  const attemptQuiz = (e) => {
+  const viewAttempts = (e, id) => {
     e.preventDefault();
+    dispatch(setSelectedQuiz(id));
+    navigate("/quizAttempts");
   };
 
   const Quiz = ({ title, description }) => (
@@ -65,7 +73,7 @@ export default function data() {
         </MDTypography>
       ),
       action: (
-        <MDButton color="warning" size="small" onClick={(e) => attemptQuiz(e)}>
+        <MDButton color="warning" size="small" onClick={(e) => viewAttempts(e, row._id)}>
           View attempts
         </MDButton>
       ),

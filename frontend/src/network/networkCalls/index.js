@@ -12,7 +12,7 @@ const createQuiz = (params) => {
 
 // Get new quizes
 const getNewQuizes = (params) => {
-  return request({ url: "/quiz/getAll", method: "post", data: params });
+  return request({ url: "/quiz/getNewUnattemptedQuizes", method: "post", data: params });
 };
 
 // Get new quizes
@@ -25,4 +25,9 @@ const getCreatedQuizes = (params) => {
   return request({ url: "/quiz/getByCreator", method: "post", data: params });
 };
 
-export { login, createQuiz, getNewQuizes, getAttemptedQuizes, getCreatedQuizes };
+// Get quiz results by quizid
+const getQuizAttempts = (params) => {
+  return request({ url: `/quiz/getByQuiz/${params}`, method: "post", data: {} });
+};
+
+export { login, createQuiz, getNewQuizes, getAttemptedQuizes, getCreatedQuizes, getQuizAttempts };
