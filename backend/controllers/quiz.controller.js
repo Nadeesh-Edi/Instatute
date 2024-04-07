@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler";
 
 import Quizes from "../models/quiz.model.js";
+import Users from "../models/user.model.js"
 
 // Create Quiz
 const createQuiz = asyncHandler(async (req, res) => {
@@ -31,10 +32,10 @@ const createQuiz = asyncHandler(async (req, res) => {
 const getAllQuizes = asyncHandler(async (req, res) => {
   try {
     const quizes = await Quizes.find({});
-    quizes.forEach(quiz => {
-        quiz = getResponseModel(quiz)
-    })
-    res.status(200).json(quizes);
+    const newQuizes = await Promise.all(
+      quizes.map(async (quiz) => await getResponseModel(quiz))
+    )
+    res.status(200).json(newQuizes);
   } catch {
     res.status(501).json({ error: "Error" });
   }
@@ -49,10 +50,10 @@ const getQuizByCreator = asyncHandler(async (req, res) => {
 
   try {
     const quizes = await Quizes.find({ createdBy: id });
-    quizes.forEach(quiz => {
-        quiz = getResponseModel(quiz)
-    })
-    res.status(200).json(quizes);
+    const newQuizes = await Promise.all(
+      quizes.map(async (quiz) => await getResponseModel(quiz))
+    )
+    res.status(200).json(newQuizes);
   } catch {
     res.status(501).json({ error: "Error" });
   }
@@ -67,7 +68,8 @@ const getQuizById = asyncHandler(async (req, res) => {
   
     try {
       const quizes = await Quizes.findById(id);
-      res.status(200).json(getResponseModel(quizes));
+      const newQuiz = await getResponseModel(quizes)
+      res.status(200).json(newQuiz);
     } catch (error) {
       res.status(501).send(error);
     }
@@ -92,13 +94,16 @@ const deleteQuiz = asyncHandler(async (req, res) => {
   }
 });
 
-const getResponseModel = (quiz) => {
-    let newQuiz = quiz;
-    newQuiz.questions.forEach(item => {
-        delete item.correctAnswerIndex
-    });
-    return newQuiz;
-}
+const getResponseModel = async (quiz) => {
+  let newQuiz = quiz;
+  newQuiz.questions.forEach((item) => {
+    delete item.correctAnswerIndex;
+  });
+  const createdBy = await Users.findById(newQuiz.createdBy);
+  newQuiz.createdBy = createdBy.name;
+
+  return newQuiz;
+};
 
 // TODO
 // Edit quiz
