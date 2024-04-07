@@ -13,14 +13,14 @@ const createNewUser = asyncHandler(async (req, res) => {
 
   // Check if a user already exists for the given email
   const currentUser = await Users.findOne({ email: email });
-  if (currentUser) return res.status(501).send("User already exists");
+  if (currentUser) return res.status(501).json({ error: "User already exists" });
 
   // Hash the password
   try {
     hashedPwrd = bcrypt.hashSync(password, SALT_ROUNDS);
     console.log(hashedPwrd);
   } catch {
-    return res.status(501).send("Password error");
+    return res.status(501).json({ error: "Password error" });
   }
 
   const user = new Users({
@@ -49,11 +49,11 @@ const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   // Email password request validations
-  if (!email) return res.status(501).send("Email is required");
-  if (!password) return res.status(501).send("Password is required");
+  if (!email) return res.status(501).json({ error: "Email is required" });
+  if (!password) return res.status(501).json({ error: "Password is required" });
 
   const user = await Users.findOne({ email: email });
-  if (!user) return res.status(404).send("User does not exist");
+  if (!user) return res.status(404).json({ error: "User does not exist" });
 
   bcrypt.compare(password, user.password, function (err, result) {
     if (err) return res.status(500).send(err);
@@ -62,7 +62,7 @@ const login = asyncHandler(async (req, res) => {
       let param = { token: token, user_type: user.user_type, id: user._id }
       return res.status(200).json(param);
     } else {
-      return res.status(501).send("Incorrect password");
+      return res.status(501).json({ error: "Incorrect password" });
     }
   });
 });
@@ -73,14 +73,14 @@ const editUser = asyncHandler(async (req, res) => {
   let hashedPwrd = "";
 
   const user = await Users.findById(id);
-  if (!user) return res.status(404).send("User not found");
+  if (!user) return res.status(404).json({ error: "User not found" });
 
   // Hash the password
   try {
     hashedPwrd = bcrypt.hashSync(password, SALT_ROUNDS);
     console.log(hashedPwrd);
   } catch {
-    return res.status(501).send("Password error");
+    return res.status(501).json({ error: "Password error" });
   }
 
   try {
@@ -93,10 +93,10 @@ const editUser = asyncHandler(async (req, res) => {
     if (updated) {
       res.status(200).send("Successfully updated");
     } else {
-      res.status(500).send("Error");
+      res.status(500).json({ error: "Error" });
     }
   } catch {
-    res.status(500).send("Error");
+    res.status(500).json({ error: "Error" });
   }
 });
 
@@ -105,17 +105,17 @@ const deleteUser = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
   // Id request validation
-  if (!id) return res.status(404).send("Id not found");
+  if (!id) return res.status(404).json({ error: "Id not found" });
 
   try {
     const deleted = await Users.deleteOne({ _id: id });
     if (deleted.deletedCount) {
       res.status(200).send("Successfully deleted");
     } else {
-      res.status(404).send("User not found");
+      res.status(404).json({ error: "User not found" });
     }
   } catch {
-    res.status(501).send("Error");
+    res.status(501).json({ error: "Error" });
   }
 });
 

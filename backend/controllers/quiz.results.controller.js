@@ -9,7 +9,7 @@ const submitQuiz = asyncHandler(async (req, res) => {
   const { quizId, answers } = req.body;
   const studentId = req.user_id;
 
-  if (!quizId || !answers) return res.status(400).send("Not found");
+  if (!quizId || !answers) return res.status(400).json({ error: "Not found" });
 
   // Check if the quiz is already attempted
   try {
@@ -17,16 +17,16 @@ const submitQuiz = asyncHandler(async (req, res) => {
       studentId: studentId,
       quizId: quizId,
     });
-    if (currentResult) return res.status(400).send("Already attempted");
+    if (currentResult) return res.status(400).json({ error: "Already attempted" });
   } catch (err) {
-    return res.status(500).json(err);
+    return res.status(500).json({ error: err });
   }
 
   let score = 0;
 
   try {
     const quiz = await Quizes.findById(quizId);
-    if (!quiz) return res.status(404).send("Quiz not found");
+    if (!quiz) return res.status(404).json({ error: "Quiz not found" });
 
     const quizQuestions = quiz.questions;
     for (let i = 0; i < quizQuestions.length; i++) {
@@ -50,17 +50,17 @@ const submitQuiz = asyncHandler(async (req, res) => {
         res.status(201).json({ score: finalScore });
       })
       .catch((err) => {
-        res.status(500).json(err);
+        res.status(500).json({ error: err });
       });
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({ error: err });
   }
 });
 
 const getResultsByQuizId = asyncHandler(async (req, res) => {
   const { id } = req.params;
   // Id request validation
-  if (!id) return res.status(404).send("Id not found");
+  if (!id) return res.status(404).json({ error: "Id not found" });
 
   try {
     const results = await QuizeResults.find({ quizId: id });
@@ -77,7 +77,7 @@ const getResultsByQuizId = asyncHandler(async (req, res) => {
     );
     res.status(200).json(newResults);
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({ error: err });
   }
 });
 
@@ -99,7 +99,7 @@ const getAttemptedQuizes = asyncHandler(async (req, res) => {
     }))
     res.status(200).json(newResults)
   } catch (err) {
-    res.status(500).send(err);
+    res.status(500).json({ error: err });
   }
 });
 

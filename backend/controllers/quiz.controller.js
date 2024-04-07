@@ -23,7 +23,7 @@ const createQuiz = asyncHandler(async (req, res) => {
         res.status(500).send(err);
       });
   } catch {
-    res.status(501).send("Error");
+    res.status(501).json({ error: "Error" });
   }
 });
 
@@ -36,7 +36,7 @@ const getAllQuizes = asyncHandler(async (req, res) => {
     })
     res.status(200).json(quizes);
   } catch {
-    res.status(501).send("Error");
+    res.status(501).json({ error: "Error" });
   }
 });
 
@@ -45,7 +45,7 @@ const getQuizByCreator = asyncHandler(async (req, res) => {
   const id = req.user_id;
 
   // Id request validation
-  if (!id) return res.status(404).send("Id not found");
+  if (!id) return res.status(404).json({ error: "Id not found" });
 
   try {
     const quizes = await Quizes.find({ createdBy: id });
@@ -54,7 +54,7 @@ const getQuizByCreator = asyncHandler(async (req, res) => {
     })
     res.status(200).json(quizes);
   } catch {
-    res.status(501).send("Error");
+    res.status(501).json({ error: "Error" });
   }
 });
 
@@ -63,7 +63,7 @@ const getQuizById = asyncHandler(async (req, res) => {
     const { id } = req.params;
   
     // Id request validation
-    if (!id) return res.status(404).send("Id not found");
+    if (!id) return res.status(404).json({ error: "Id not found" });
   
     try {
       const quizes = await Quizes.findById(id);
@@ -78,17 +78,17 @@ const deleteQuiz = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
   // Id request validation
-  if (!id) return res.status(404).send("Id not found");
+  if (!id) return res.status(404).json({ error: "Id not found" });
 
   try {
     const deleted = await Quizes.deleteOne({ _id: id });
     if (deleted.deletedCount) {
       res.status(200).send("Successfully deleted");
     } else {
-      res.status(404).send("Quiz not found");
+      res.status(404).json({ error: "Quiz not found" });
     }
   } catch {
-    res.status(501).send("Error");
+    res.status(501).json({ error: "Error" });
   }
 });
 
