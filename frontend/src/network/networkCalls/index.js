@@ -20,4 +20,9 @@ const getAttemptedQuizes = (params) => {
   return request({ url: "/quiz/getAttemptedQuizes", method: "post", data: params });
 };
 
-export { login, createQuiz, getNewQuizes, getAttemptedQuizes };
+// Get new quizes
+const getCreatedQuizes = (params) => {
+  return request({ url: "/quiz/getByCreator", method: "post", data: params });
+};
+
+export { login, createQuiz, getNewQuizes, getAttemptedQuizes, getCreatedQuizes };

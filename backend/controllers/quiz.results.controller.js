@@ -69,6 +69,9 @@ const getResultsByQuizId = asyncHandler(async (req, res) => {
         const newItem = item.toObject();
         const student = await Users.findById(newItem.studentId);
         newItem.student = student.name;
+
+        const quiz = await Quizes.findById(newItem.quizId)
+        newItem.quiz = { title: quiz.title, description: quiz.description }
         delete newItem.studentId;
         delete newItem._id
 

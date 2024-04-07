@@ -42,6 +42,7 @@ import SignIn from "layouts/authentication/sign-in";
 import CreateQuiz from "layouts/quiz/createQuiz";
 import NewQuizList from "layouts/quiz/newQuizList";
 import AttemptedQuizList from "layouts/quiz/attemptedQuizes";
+import MyQuizes from "layouts/quiz/myQuizes";
 
 // Student Routes
 const studentRoutes = [
@@ -88,6 +89,14 @@ const staffRoutes = [
     icon: <Icon fontSize="small">quiz</Icon>,
     route: "/createQuiz",
     component: <CreateQuiz />,
+  },
+  {
+    type: "collapse",
+    name: "My Quizes",
+    key: "myQuizes",
+    icon: <Icon fontSize="small">quiz</Icon>,
+    route: "/myQuizes",
+    component: <MyQuizes />,
   },
 ];
 

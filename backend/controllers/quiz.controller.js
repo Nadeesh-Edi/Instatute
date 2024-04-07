@@ -1,7 +1,9 @@
 import asyncHandler from "express-async-handler";
+import moment from 'moment'
 
 import Quizes from "../models/quiz.model.js";
-import Users from "../models/user.model.js"
+import Users from "../models/user.model.js";
+import QuizeResults from "../models/quiz.results.model.js";
 
 // Create Quiz
 const createQuiz = asyncHandler(async (req, res) => {
@@ -52,7 +54,7 @@ const getQuizByCreator = asyncHandler(async (req, res) => {
   try {
     const quizes = await Quizes.find({ createdBy: id });
     const newQuizes = await Promise.all(
-      quizes.map(async (quiz) => await getResponseModel(quiz))
+      quizes.map(async (quiz) => await getCreatedByResponseModel(quiz))
     )
     res.status(200).json(newQuizes);
   } catch {
@@ -102,6 +104,29 @@ const getResponseModel = async (quiz) => {
   });
   const createdBy = await Users.findById(newQuiz.createdBy);
   newQuiz.createdBy = { name: createdBy.name, role: createdBy.role };
+
+  return newQuiz;
+};
+
+// Get response model for quizes filter by creator
+const getCreatedByResponseModel = async (quiz) => {
+  let newQuiz = quiz.toObject();
+  newQuiz.questions.forEach((item) => {
+    delete item.correctAnswerIndex;
+  });
+  const createdBy = await Users.findById(newQuiz.createdBy);
+  newQuiz.createdBy = { name: createdBy.name, role: createdBy.role };
+
+  // Get the validity status - open or closed
+  const today = moment(new Date())
+  if (today.isBefore(moment(newQuiz.deadline))) {
+    newQuiz.validStatus = 1;
+  } else {
+    newQuiz.validStatus = 0;
+  }
+
+  const attempts = await QuizeResults.find({ quizId: newQuiz._id })
+  newQuiz.attempts = attempts.length;
 
   return newQuiz;
 };
