@@ -28,7 +28,7 @@ const quizSchema = mongoose.Schema({
         required: true
     },
     timePeriod: {
-        type: Date,
+        type: String,
         required: true
     },
     deadline: {

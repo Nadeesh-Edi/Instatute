@@ -7,7 +7,8 @@ import QuizeResults from "../models/quiz.results.model.js";
 
 // Create Quiz
 const createQuiz = asyncHandler(async (req, res) => {
-  const { title, questions, createdBy, timePeriod, deadline, description } = req.body;
+  const { title, questions, timePeriod, deadline, description } = req.body;
+  const createdBy = req.user_id
 
   try {
     const quiz = new Quizes({
@@ -37,6 +38,26 @@ const getAllQuizes = asyncHandler(async (req, res) => {
     const quizes = await Quizes.find({});
     const newQuizes = await Promise.all(
       quizes.map(async (quiz) => await getResponseModel(quiz))
+    )
+    res.status(200).json(newQuizes);
+  } catch {
+    res.status(501).json({ error: "Error" });
+  }
+});
+
+// Get all new and unattempted quizes
+const getAllNewUnattemptedQuizes = asyncHandler(async (req, res) => {
+  const id = req.user_id;
+  try {
+    const quizes = await Quizes.find({});
+
+    const openQuizes = quizes.filter(item => {
+      const today = moment(new Date())
+      return today.isBefore(moment(item.deadline))
+    })
+
+    const newQuizes = await Promise.all(
+      openQuizes.map(async (quiz) => await getResponseModel(quiz))
     )
     res.status(200).json(newQuizes);
   } catch {
@@ -134,4 +155,4 @@ const getCreatedByResponseModel = async (quiz) => {
 // TODO
 // Edit quiz
 
-export { createQuiz, deleteQuiz, getAllQuizes, getQuizByCreator, getQuizById };
+export { createQuiz, deleteQuiz, getAllQuizes, getQuizByCreator, getQuizById, getAllNewUnattemptedQuizes };
