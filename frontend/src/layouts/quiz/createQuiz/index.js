@@ -13,8 +13,11 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDInput from "components/MDInput";
 import MDButton from "components/MDButton";
+
 import AddQuestion from "./components/addQuestion";
 import { useEffect, useState } from "react";
+import { createQuiz } from "network/networkCalls";
+import ShowErrorAlert from "network/errorAlert";
 
 function CreateQuiz() {
   const [addQuestion, setAddQuestion] = useState(false);
@@ -24,6 +27,10 @@ function CreateQuiz() {
   const [deadline, setDeadline] = useState("");
   const [period, setPeriod] = useState("");
   const [isDisabled, setIsDisabled] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const [showError, setShowError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
   const addNewQuestion = (question) => {
     const newList = [...questionsList, question];
@@ -54,8 +61,23 @@ function CreateQuiz() {
         };
       }),
     };
+    setLoading(true);
 
-    console.log("params", params);
+    createQuiz(params)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        showErrorAlert(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  const showErrorAlert = (msg) => {
+    setErrorMsg(msg);
+    setShowError(true);
   };
 
   useEffect(() => {
@@ -168,6 +190,9 @@ function CreateQuiz() {
         </Grid>
       </MDBox>
       <AddQuestion visible={addQuestion} setVisible={setAddQuestion} addQuestion={addNewQuestion} />
+
+      {/* Error alert */}
+      {<ShowErrorAlert open={showError} closeAlert={setShowError} message={errorMsg} />}
     </DashboardLayout>
   );
 }
