@@ -14,10 +14,10 @@ export default function request(params) {
       headers: { Authorization: token },
     })
       .then((res) => {
-        resolve(res);
+        resolve(res.data);
       })
       .catch((err) => {
-        reject(err.message);
+        reject(err.response.data.error);
       });
   });
 }

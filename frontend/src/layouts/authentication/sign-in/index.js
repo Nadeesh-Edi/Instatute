@@ -2,6 +2,7 @@ import { useState } from "react";
 
 // react-router-dom components
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -27,6 +28,7 @@ import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 import { login } from "network/networkCalls";
 
 function Basic() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -39,7 +41,9 @@ function Basic() {
     const param = { email, password };
     login(param)
       .then((res) => {
-        console.log(res);
+        localStorage.setItem("token", res.token);
+        localStorage.setItem("type", res.user_type);
+        navigate("/tables");
       })
       .catch((err) => {
         showErrorAlert(err);
