@@ -5,10 +5,10 @@ import MDBadge from "components/MDBadge";
 import { useEffect, useState } from "react";
 import moment from "moment";
 import { getNewQuizes } from "network/networkCalls";
-import ShowErrorAlert from "network/errorAlert";
+import { ShowErrorAlert } from "network/errorAlert";
 import MDButton from "components/MDButton";
 
-export default function data() {
+export default function data(prop) {
   const [data, setData] = useState([]);
 
   const showErrorAlert = (msg) => {
@@ -26,8 +26,9 @@ export default function data() {
       });
   }, []);
 
-  const attemptQuiz = (e) => {
+  const attemptQuiz = (e, row) => {
     e.preventDefault();
+    prop.openFunc(row);
   };
 
   const Quiz = ({ title, description }) => (
@@ -60,7 +61,7 @@ export default function data() {
         </MDTypography>
       ),
       action: (
-        <MDButton color="success" size="small" onClick={(e) => attemptQuiz(e)}>
+        <MDButton color="success" size="small" onClick={(e) => attemptQuiz(e, row)}>
           Attempt Now
         </MDButton>
       ),

@@ -5,7 +5,7 @@ import MDBadge from "components/MDBadge";
 import { useEffect, useState } from "react";
 import moment from "moment";
 import { getCreatedQuizes } from "network/networkCalls";
-import ShowErrorAlert from "network/errorAlert";
+import { ShowErrorAlert } from "network/errorAlert";
 import MDButton from "components/MDButton";
 
 import { useNavigate } from "react-router-dom";

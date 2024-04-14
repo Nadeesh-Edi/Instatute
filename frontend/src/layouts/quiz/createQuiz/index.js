@@ -17,7 +17,7 @@ import MDButton from "components/MDButton";
 import AddQuestion from "./components/addQuestion";
 import { useEffect, useState } from "react";
 import { createQuiz } from "network/networkCalls";
-import ShowErrorAlert from "network/errorAlert";
+import { ShowErrorAlert, ShowSuccessAlert } from "network/errorAlert";
 
 function CreateQuiz() {
   const [addQuestion, setAddQuestion] = useState(false);
@@ -31,6 +31,7 @@ function CreateQuiz() {
 
   // For error alert
   const [showError, setShowError] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
   const addNewQuestion = (question) => {
@@ -66,7 +67,7 @@ function CreateQuiz() {
 
     createQuiz(params)
       .then((res) => {
-        console.log(res);
+        showSuccessAlert(res);
       })
       .catch((err) => {
         showErrorAlert(err);
@@ -79,6 +80,11 @@ function CreateQuiz() {
   const showErrorAlert = (msg) => {
     setErrorMsg(msg);
     setShowError(true);
+  };
+
+  const showSuccessAlert = (msg) => {
+    setErrorMsg(msg);
+    setShowSuccess(true);
   };
 
   useEffect(() => {
@@ -194,6 +200,9 @@ function CreateQuiz() {
 
       {/* Error alert */}
       {<ShowErrorAlert open={showError} closeAlert={setShowError} message={errorMsg} />}
+
+      {/* Success alert */}
+      {<ShowSuccessAlert open={showSuccess} closeAlert={setShowSuccess} message={errorMsg} />}
     </DashboardLayout>
   );
 }

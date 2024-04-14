@@ -7,7 +7,7 @@ import MDProgress from "components/MDProgress";
 import { useEffect, useState } from "react";
 import moment from "moment";
 import { getAttemptedQuizes } from "network/networkCalls";
-import ShowErrorAlert from "network/errorAlert";
+import { ShowErrorAlert } from "network/errorAlert";
 import MDButton from "components/MDButton";
 
 export default function data() {

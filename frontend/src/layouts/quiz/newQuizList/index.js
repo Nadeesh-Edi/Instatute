@@ -12,9 +12,28 @@ import DataTable from "examples/Tables/DataTable";
 
 // Data
 import quizTableData from "./data/newQuizData";
+import AttemptQuizConfirm from "../attemptQuiz/components/confirmation";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function NewQuizList() {
-  const { columns, rows } = quizTableData();
+  const [showQuizConfirm, setShowQuizConfirm] = useState(false);
+  const [selectedId, setSelectedId] = useState("");
+  const [row, setRow] = useState({});
+  const navigate = useNavigate();
+
+  const openQuiz = (row) => {
+    setRow(row);
+    setSelectedId(row._id);
+    setShowQuizConfirm(true);
+  };
+
+  const attemptQuiz = () => {
+    localStorage.setItem("selectedId", selectedId);
+    navigate("/attemptQuiz");
+  };
+
+  const { columns, rows } = quizTableData({ openFunc: openQuiz });
 
   return (
     <DashboardLayout>
@@ -50,6 +69,16 @@ function NewQuizList() {
           </Grid>
         </Grid>
       </MDBox>
+
+      {/* Confirm to attempt the quiz */}
+      <AttemptQuizConfirm
+        visible={showQuizConfirm}
+        setVisible={setShowQuizConfirm}
+        quizTitle={row.title}
+        description={row.description}
+        timePeriod={row.timePeriod}
+        attemptNow={attemptQuiz}
+      />
     </DashboardLayout>
   );
 }

@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setSelectedQuiz } from "store/selectedQuiz/selectedQuizSlice";
 
 import { getQuizAttempts } from "network/networkCalls";
-import ShowErrorAlert from "network/errorAlert";
+import { ShowErrorAlert } from "network/errorAlert";
 
 export default function data() {
   const [data, setData] = useState([]);

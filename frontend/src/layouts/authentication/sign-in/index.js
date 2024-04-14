@@ -21,7 +21,7 @@ import MDInput from "components/MDInput";
 import MDButton from "components/MDButton";
 
 import BasicLayout from "layouts/authentication/components/BasicLayout";
-import ShowErrorAlert from "network/errorAlert";
+import { ShowErrorAlert } from "network/errorAlert";
 
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";

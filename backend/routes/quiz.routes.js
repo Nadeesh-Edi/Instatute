@@ -9,7 +9,7 @@ router.post('/createQuiz', verifyTokenForStaff, createQuiz)
 router.post('/deleteQuiz/:id', verifyTokenForStaff, deleteQuiz)
 router.post('/getAll', verifyTokenForStudent, getAllQuizes)
 router.post('/getByCreator', verifyTokenForStaff, getQuizByCreator)
-router.post('/getById/:id', verifyTokenForStaff, getQuizById)
+router.post('/getById/:id', verifyTokenForStudent, getQuizById)
 
 router.post('/submitQuiz', verifyTokenForStudent, submitQuiz)
 router.post('/getByQuiz/:id', verifyTokenForStaff, getResultsByQuizId)
