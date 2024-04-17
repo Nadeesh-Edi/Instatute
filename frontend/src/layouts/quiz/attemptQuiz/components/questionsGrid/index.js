@@ -8,16 +8,6 @@ import { useEffect, useState } from "react";
 function QuestionsGrid(props) {
   const [isLastMin, setIsLAstMin] = useState(false);
 
-  const completed = () => {
-    props.timerFinished();
-  };
-
-  const onTimeChange = (e) => {
-    // if (e.total < 60000) {
-    //   setIsLAstMin(true);
-    // }
-  };
-
   return (
     <MDBox>
       <Card>
@@ -33,19 +23,6 @@ function QuestionsGrid(props) {
           </Grid>
         </MDBox>
       </Card>
-
-      {props.period != 0 && (
-        <Card style={{ marginTop: 20 }}>
-          <MDBox px={2} py={1} style={styles.timer}>
-            <Countdown
-              date={Date.now() + props.period}
-              onComplete={completed}
-              onTick={onTimeChange}
-              autoStart
-            />
-          </MDBox>
-        </Card>
-      )}
     </MDBox>
   );
 }
