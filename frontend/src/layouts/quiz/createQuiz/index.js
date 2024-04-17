@@ -87,6 +87,10 @@ function CreateQuiz() {
     setShowSuccess(true);
   };
 
+  const formatPeriod = (e) => {
+    console.log(e);
+  };
+
   useEffect(() => {
     setIsDisabled(!title || !description || !deadline || !period || questionsList.length < 1);
   }, [title, description, deadline, period, questionsList]);
@@ -149,7 +153,9 @@ function CreateQuiz() {
                           type="time"
                           label="Attemptable time"
                           fullWidth
-                          onChange={(e) => setPeriod(e.target.value)}
+                          views={["hours", "minutes"]}
+                          format="hh:mm"
+                          onChange={(e) => formatPeriod(e.target.value)}
                         />
                       </MDBox>
                     </Grid>

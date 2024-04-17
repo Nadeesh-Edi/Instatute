@@ -1,18 +1,12 @@
 import MDSnackbar from "components/MDSnackbar";
+import Alert from "@mui/material/Alert";
+import Snackbar from "@mui/material/Snackbar";
 
-function ShowErrorAlert(props) {
-  return (
-    <MDSnackbar
-      color="error"
-      icon="warning"
-      title="Error"
-      content={props.message}
-      open={props.open}
-      onClose={() => props.closeAlert(false)}
-      close={() => props.closeAlert(false)}
-      bgWhite
-    />
-  );
+let showPopup = false;
+
+function ShowErrorAlert(msg) {
+  console.log("in component");
+  return <Snackbar open={true} autoHideDuration={6000} message={msg} />;
 }
 
 function ShowSuccessAlert(props) {
