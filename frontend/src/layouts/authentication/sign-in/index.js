@@ -24,7 +24,7 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 import { ShowErrorAlert } from "network/errorAlert";
 
 // Images
-import bgImage from "assets/images/bg-sign-in-basic.jpeg";
+import bgImage from "assets/images/bg-sign-in-basic.jpg";
 import { login } from "network/networkCalls";
 
 function Basic() {
@@ -57,10 +57,10 @@ function Basic() {
 
   return (
     <BasicLayout image={bgImage}>
-      <Card>
+      <Card style={{ backgroundColor: "#ffffff91" }}>
         <MDBox
           variant="gradient"
-          bgColor="info"
+          bgColor="dark"
           borderRadius="lg"
           coloredShadow="info"
           mx={2}
@@ -79,6 +79,7 @@ function Basic() {
               <MDInput
                 type="email"
                 label="Email"
+                color="error"
                 fullWidth
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}

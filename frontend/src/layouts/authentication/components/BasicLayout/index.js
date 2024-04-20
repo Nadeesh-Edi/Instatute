@@ -29,14 +29,7 @@ import PageLayout from "examples/LayoutContainers/PageLayout";
 function BasicLayout({ image, children }) {
   return (
     <PageLayout>
-      <DefaultNavbar
-        action={{
-          type: "external",
-          route: "https://creative-tim.com/product/material-dashboard-react",
-          label: "free download",
-          color: "dark",
-        }}
-      />
+      <DefaultNavbar />
       <MDBox
         position="absolute"
         width="100%"
