@@ -45,6 +45,7 @@ import AttemptedQuizList from "layouts/quiz/attemptedQuizes";
 import MyQuizes from "layouts/quiz/myQuizes";
 import QuizAttempts from "layouts/quiz/quizAttempts";
 import AttemptQuiz from "layouts/quiz/attemptQuiz";
+import AttemptDetails from "layouts/quiz/attemptDetails";
 
 // Student Routes
 const studentRoutes = [
@@ -78,6 +79,14 @@ const studentRoutes = [
         icon: <Icon fontSize="small">quiz</Icon>,
         route: "/attemptQuiz",
         component: <AttemptQuiz />,
+      },
+      {
+        type: "collapse",
+        name: "Attempt Quiz",
+        key: "attemptQuiz",
+        icon: <Icon fontSize="small">quiz</Icon>,
+        route: "/attemptDetails",
+        component: <AttemptDetails />,
       },
     ],
   },

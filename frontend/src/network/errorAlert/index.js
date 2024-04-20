@@ -4,9 +4,9 @@ import Snackbar from "@mui/material/Snackbar";
 
 let showPopup = false;
 
-function ShowErrorAlert(msg) {
+function ShowErrorAlert(props) {
   console.log("in component");
-  return <Snackbar open={true} autoHideDuration={6000} message={msg} />;
+  return <Snackbar open={true} autoHideDuration={6000} message={props.message} />;
 }
 
 function ShowSuccessAlert(props) {

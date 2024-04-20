@@ -9,9 +9,11 @@ import moment from "moment";
 import { getAttemptedQuizes } from "network/networkCalls";
 import { ShowErrorAlert } from "network/errorAlert";
 import MDButton from "components/MDButton";
+import { useNavigate } from "react-router-dom";
 
 export default function data() {
   const [data, setData] = useState([]);
+  const navigate = useNavigate();
 
   const showErrorAlert = (msg) => {
     alert(msg);
@@ -28,8 +30,10 @@ export default function data() {
       });
   }, []);
 
-  const attemptQuiz = (e) => {
+  const viewDetails = (e, row) => {
     e.preventDefault();
+    localStorage.setItem("selectedId", row.quiz.id);
+    navigate("/attemptDetails");
   };
 
   const Quiz = ({ title, description }) => (
@@ -65,13 +69,18 @@ export default function data() {
 
   const getRow = (row) => {
     return {
-      quiz: <Quiz title={row.quiz} description={row.description} />,
+      quiz: <Quiz title={row.quiz.title} description={row.quiz.description} />,
       attemptedOn: (
         <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
           {moment(row.createdAt).format("MMM Do YYYY")}
         </MDTypography>
       ),
       results: <Progress color={getColorForScore(row.score)} value={row.score} />,
+      actions: (
+        <MDButton color="success" size="small" onClick={(e) => viewDetails(e, row)}>
+          View Details
+        </MDButton>
+      ),
     };
   };
 
@@ -92,6 +101,7 @@ export default function data() {
       { Header: "quiz", accessor: "quiz", width: "30%", align: "left" },
       { Header: "results", accessor: "results", align: "center" },
       { Header: "attempted on", accessor: "attemptedOn", align: "center" },
+      { Header: "", accessor: "actions", align: "center" },
     ],
 
     rows: data.map((item) => {

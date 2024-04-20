@@ -118,7 +118,7 @@ function Basic() {
       </Card>
 
       {/* Error alert */}
-      {<ShowErrorAlert open={showError} closeAlert={setShowError} message={errorMsg} />}
+      {/* {<ShowErrorAlert open={showError} closeAlert={setShowError} message={errorMsg} />} */}
     </BasicLayout>
   );
 }

@@ -16,6 +16,7 @@ function QuestionsAnswerPanel(props) {
     current[questionIndex] = e.target.value;
     setAnswers(current);
     props.updateChecked(questionIndex);
+    props.answerChecked(current);
   };
 
   useEffect(() => {

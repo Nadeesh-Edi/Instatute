@@ -35,6 +35,16 @@ const getQuizInfoById = (params) => {
   return request({ url: `/quiz/getById/${params}`, method: "post", data: {} });
 };
 
+// Submit quiz
+const submitQuiz = (params) => {
+  return request({ url: `/quiz/submitQuiz`, method: "post", data: params });
+};
+
+// Get attempted quiz details
+const getAttemptDetails = (params) => {
+  return request({ url: `/quiz/getAttemptDetails/${params}`, method: "post", data: {} });
+};
+
 export {
   login,
   createQuiz,
@@ -43,4 +53,6 @@ export {
   getCreatedQuizes,
   getQuizAttempts,
   getQuizInfoById,
+  submitQuiz,
+  getAttemptDetails,
 };

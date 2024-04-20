@@ -92,7 +92,11 @@ const getAttemptedQuizes = asyncHandler(async (req, res) => {
     const newResults = await Promise.all(results.map(async (item) => {
         const newItem = item.toObject();
         const quiz = await Quizes.findById(newItem.quizId)
-        newItem.quiz = quiz.title;
+        newItem.quiz = {
+          title: quiz.title,
+          description: quiz.description,
+          id: newItem.quizId
+        }
 
         delete newItem.quizId;
         delete newItem.studentId
@@ -106,4 +110,30 @@ const getAttemptedQuizes = asyncHandler(async (req, res) => {
   }
 });
 
-export { submitQuiz, getResultsByQuizId, getAttemptedQuizes };
+const getAttemptDetailsByQuizId = asyncHandler(async (req, res) => {
+  const id = req.user_id;
+  const quizId = req.params.id;
+
+  if (!quizId) return res.status(404).json({ error: "Quiz not found" });
+
+  try {
+    const result = await QuizeResults.findOne({ quizId: quizId, studentId: id })
+
+    if (!result) return res.status(404).json({ error: "Not attempted" });
+    
+    const quiz = await Quizes.findById(quizId)
+    if (!quiz) return res.status(404).json({ error: "Quiz not found" });
+
+    const newItem = result.toObject();
+    newItem.quiz = { title: quiz.title, description: quiz.description }
+    delete newItem.quizId;
+    delete newItem.studentId
+    delete newItem._id
+
+    res.status(200).json(newItem)
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+})
+
+export { submitQuiz, getResultsByQuizId, getAttemptedQuizes, getAttemptDetailsByQuizId };
