@@ -37,7 +37,6 @@ Coded by www.creative-tim.com
 // @mui icons
 import Icon from "@mui/material/Icon";
 
-import Tables from "layouts/tables";
 import SignIn from "layouts/authentication/sign-in";
 import CreateQuiz from "layouts/quiz/createQuiz";
 import NewQuizList from "layouts/quiz/newQuizList";
@@ -47,16 +46,17 @@ import QuizAttempts from "layouts/quiz/quizAttempts";
 import AttemptQuiz from "layouts/quiz/attemptQuiz";
 import AttemptDetails from "layouts/quiz/attemptDetails";
 import SignUp from "layouts/authentication/sign-up";
+import Dashboard from "layouts/dashboard";
 
 // Student Routes
 const studentRoutes = [
   {
     type: "collapse",
-    name: "Tables",
-    key: "tables",
-    icon: <Icon fontSize="small">table_view</Icon>,
-    route: "/tables",
-    component: <Tables />,
+    name: "Dashboard",
+    key: "dashboard",
+    icon: <Icon fontSize="small">dashboard</Icon>,
+    route: "/dashboard",
+    component: <Dashboard />,
   },
   {
     type: "collapse",
@@ -105,11 +105,11 @@ const studentRoutes = [
 const staffRoutes = [
   {
     type: "collapse",
-    name: "Tables",
-    key: "tables",
-    icon: <Icon fontSize="small">table_view</Icon>,
-    route: "/tables",
-    component: <Tables />,
+    name: "Dashboard",
+    key: "dashboard",
+    icon: <Icon fontSize="small">dashboard</Icon>,
+    route: "/dashboard",
+    component: <Dashboard />,
   },
   {
     type: "collapse",
@@ -150,11 +150,11 @@ const staffRoutes = [
 const defaultRoutes = [
   {
     type: "collapse",
-    name: "Tables",
-    key: "tables",
-    icon: <Icon fontSize="small">table_view</Icon>,
-    route: "/tables",
-    component: <Tables />,
+    name: "Dashboard",
+    key: "dashboard",
+    icon: <Icon fontSize="small">dashboard</Icon>,
+    route: "/dashboard",
+    component: <Dashboard />,
   },
   {
     type: "collapse",

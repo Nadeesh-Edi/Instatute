@@ -43,7 +43,7 @@ function Basic() {
       .then((res) => {
         localStorage.setItem("token", res.token);
         localStorage.setItem("type", res.user_type);
-        navigate("/tables");
+        navigate("/dashboard");
       })
       .catch((err) => {
         showErrorAlert(err);

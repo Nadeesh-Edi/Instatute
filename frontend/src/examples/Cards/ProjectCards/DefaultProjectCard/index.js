@@ -72,10 +72,12 @@ function DefaultProjectCard({ image, label, title, description, action, authors 
             boxShadow: ({ boxShadows: { md } }) => md,
             objectFit: "cover",
             objectPosition: "center",
+            height: 150,
+            width: "100%",
           }}
         />
       </MDBox>
-      <MDBox mt={1} mx={0.5}>
+      <MDBox mt={1} mx={0.5} pb={2}>
         <MDTypography variant="button" fontWeight="regular" color="text" textTransform="capitalize">
           {label}
         </MDTypography>
@@ -146,7 +148,6 @@ DefaultProjectCard.defaultProps = {
 // Typechecking props for the DefaultProjectCard
 DefaultProjectCard.propTypes = {
   image: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   action: PropTypes.shape({
