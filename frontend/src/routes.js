@@ -46,6 +46,7 @@ import MyQuizes from "layouts/quiz/myQuizes";
 import QuizAttempts from "layouts/quiz/quizAttempts";
 import AttemptQuiz from "layouts/quiz/attemptQuiz";
 import AttemptDetails from "layouts/quiz/attemptDetails";
+import SignUp from "layouts/authentication/sign-up";
 
 // Student Routes
 const studentRoutes = [
@@ -162,6 +163,14 @@ const defaultRoutes = [
     icon: <Icon fontSize="small">login</Icon>,
     route: "/authentication/sign-in",
     component: <SignIn />,
+  },
+  {
+    type: "collapse",
+    name: "Sign Up",
+    key: "sign-up",
+    icon: <Icon fontSize="small">login</Icon>,
+    route: "/authentication/sign-up",
+    component: <SignUp />,
   },
 ];
 

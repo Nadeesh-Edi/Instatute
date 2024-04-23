@@ -57,7 +57,7 @@ function Basic() {
 
   return (
     <BasicLayout image={bgImage}>
-      <Card style={{ backgroundColor: "#ffffff91" }}>
+      <Card>
         <MDBox
           variant="gradient"
           bgColor="dark"
