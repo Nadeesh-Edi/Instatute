@@ -35,7 +35,7 @@ const createQuiz = asyncHandler(async (req, res) => {
 // Get all quizes
 const getAllQuizes = asyncHandler(async (req, res) => {
   try {
-    const quizes = await Quizes.find({});
+    const quizes = await Quizes.find({}).sort({ createdAt: -1 });
     const newQuizes = await Promise.all(
       quizes.map(async (quiz) => await getResponseModel(quiz))
     )
@@ -49,7 +49,7 @@ const getAllQuizes = asyncHandler(async (req, res) => {
 const getAllNewUnattemptedQuizes = asyncHandler(async (req, res) => {
   const id = req.user_id;
   try {
-    const quizes = await Quizes.find({});
+    const quizes = await Quizes.find({}).sort({ createdAt: -1 });
 
     const openQuizes = quizes.filter(item => {
       const today = moment(new Date())
@@ -73,7 +73,7 @@ const getQuizByCreator = asyncHandler(async (req, res) => {
   if (!id) return res.status(404).json({ error: "Id not found" });
 
   try {
-    const quizes = await Quizes.find({ createdBy: id });
+    const quizes = await Quizes.find({ createdBy: id }).sort({ createdAt: -1 });
     const newQuizes = await Promise.all(
       quizes.map(async (quiz) => await getCreatedByResponseModel(quiz))
     )

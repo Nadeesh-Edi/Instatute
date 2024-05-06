@@ -57,6 +57,7 @@ const submitQuiz = asyncHandler(async (req, res) => {
   }
 });
 
+// Get results by Quiz id
 const getResultsByQuizId = asyncHandler(async (req, res) => {
   const { id } = req.params;
   // Id request validation
@@ -84,11 +85,12 @@ const getResultsByQuizId = asyncHandler(async (req, res) => {
   }
 });
 
+// Get the attempted quizes list
 const getAttemptedQuizes = asyncHandler(async (req, res) => {
   const id = req.user_id;
 
   try {
-    const results = await QuizeResults.find({ studentId: id })
+    const results = await QuizeResults.find({ studentId: id }).sort({ createdAt: -1 });
     const newResults = await Promise.all(results.map(async (item) => {
         const newItem = item.toObject();
         const quiz = await Quizes.findById(newItem.quizId)
@@ -110,6 +112,7 @@ const getAttemptedQuizes = asyncHandler(async (req, res) => {
   }
 });
 
+// Get attempt details
 const getAttemptDetailsByQuizId = asyncHandler(async (req, res) => {
   const id = req.user_id;
   const quizId = req.params.id;

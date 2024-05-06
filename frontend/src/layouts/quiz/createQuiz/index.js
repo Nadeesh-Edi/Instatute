@@ -19,6 +19,11 @@ import { useEffect, useState } from "react";
 import { createQuiz } from "network/networkCalls";
 import { ShowErrorAlert, ShowSuccessAlert } from "network/errorAlert";
 
+import Alert from "@mui/material/Alert";
+import { useAlert } from "react-alert";
+import { useNavigate } from "react-router-dom";
+import moment from "moment";
+
 function CreateQuiz() {
   const [addQuestion, setAddQuestion] = useState(false);
   const [questionsList, setFullQuestionList] = useState([]);
@@ -27,12 +32,12 @@ function CreateQuiz() {
   const [deadline, setDeadline] = useState("");
   const [period, setPeriod] = useState("");
   const [isDisabled, setIsDisabled] = useState(false);
+  const [hours, setHours] = useState(null);
+  const [mins, setMins] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // For error alert
-  const [showError, setShowError] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
+  const alert = useAlert();
+  const navigate = useNavigate();
 
   const addNewQuestion = (question) => {
     const newList = [...questionsList, question];
@@ -54,7 +59,7 @@ function CreateQuiz() {
       title,
       description,
       deadline,
-      timePeriod: period,
+      timePeriod: `${hours ? hours.padStart(2, "0") : "00"}:${mins ? mins.padStart(2, "0") : "00"}`,
       questions: questionsList.map((item) => {
         return {
           question: item.question,
@@ -63,37 +68,35 @@ function CreateQuiz() {
         };
       }),
     };
-    setLoading(true);
 
     createQuiz(params)
       .then((res) => {
-        showSuccessAlert(res);
+        alert.success("Successfully created", {
+          onClose: () => {
+            navigate("/myQuizes");
+          },
+        });
       })
       .catch((err) => {
-        showErrorAlert(err);
+        alert.error(err);
       })
       .finally(() => {
         setLoading(false);
       });
   };
 
-  const showErrorAlert = (msg) => {
-    setErrorMsg(msg);
-    setShowError(true);
-  };
-
-  const showSuccessAlert = (msg) => {
-    setErrorMsg(msg);
-    setShowSuccess(true);
-  };
-
-  const formatPeriod = (e) => {
-    console.log(e);
-  };
+  useEffect(() => {
+    // const day = moment().format();
+    const day = new Date();
+    console.log(day);
+    setDeadline(day);
+  }, []);
 
   useEffect(() => {
-    setIsDisabled(!title || !description || !deadline || !period || questionsList.length < 1);
-  }, [title, description, deadline, period, questionsList]);
+    setIsDisabled(
+      !title || !description || !deadline || questionsList.length < 1 || (!mins && !hours)
+    );
+  }, [title, description, deadline, hours, mins, questionsList]);
 
   return (
     <DashboardLayout>
@@ -137,29 +140,44 @@ function CreateQuiz() {
                   </MDBox>
 
                   <Grid container spacing={6}>
-                    <Grid item xs={6}>
+                    <Grid item sm={6}>
                       <MDBox mb={2}>
                         <MDInput
                           type="date"
                           label="Quiz Deadline"
                           fullWidth
+                          value={deadline}
                           onChange={(e) => setDeadline(e.target.value)}
                         />
                       </MDBox>
                     </Grid>
-                    <Grid item xs={6}>
-                      <MDBox mb={2}>
-                        <MDInput
-                          type="time"
-                          label="Attemptable time"
-                          fullWidth
-                          views={["hours", "minutes"]}
-                          format="hh:mm"
-                          onChange={(e) => formatPeriod(e.target.value)}
-                        />
-                      </MDBox>
-                    </Grid>
                   </Grid>
+
+                  <MDBox mb={2}>
+                    <Grid container spacing={6}>
+                      <Grid item sm={4} xs={12}>
+                        <MDTypography variant="body2" color="text">
+                          Attemptable time&nbsp;&nbsp;&nbsp;&nbsp;:
+                        </MDTypography>
+                      </Grid>
+                      <Grid item sm={4} xs={6}>
+                        <MDInput
+                          type="number"
+                          label="Hours"
+                          fullWidth
+                          onChange={(e) => setHours(e.target.value)}
+                        />
+                      </Grid>
+                      <Grid item sm={4} xs={6}>
+                        <MDInput
+                          type="number"
+                          label="Minutes"
+                          fullWidth
+                          onChange={(e) => setMins(e.target.value)}
+                        />
+                      </Grid>
+                    </Grid>
+                  </MDBox>
                 </MDBox>
               </MDBox>
             </Card>
@@ -203,12 +221,6 @@ function CreateQuiz() {
         </Grid>
       </MDBox>
       <AddQuestion visible={addQuestion} setVisible={setAddQuestion} addQuestion={addNewQuestion} />
-
-      {/* Error alert */}
-      {<ShowErrorAlert open={showError} closeAlert={setShowError} message={errorMsg} />}
-
-      {/* Success alert */}
-      {<ShowSuccessAlert open={showSuccess} closeAlert={setShowSuccess} message={errorMsg} />}
     </DashboardLayout>
   );
 }

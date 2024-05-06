@@ -7,6 +7,7 @@ import cors from "cors";
 // Import routes
 import UserRoutes from './routes/user.routes.js';
 import QuizRoutes from './routes/quiz.routes.js';
+import WebforumRoutes from './routes/webforum.routes.js';
 
 dotenv.config();
 
@@ -20,7 +21,8 @@ app.use(express.json());
 
 // Calling routes
 app.use("/api/user", UserRoutes);
-app.use("/api/quiz", QuizRoutes)
+app.use("/api/quiz", QuizRoutes);
+app.use("/api/webforum", WebforumRoutes);
 
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
