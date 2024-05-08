@@ -88,7 +88,6 @@ function CreateQuiz() {
   useEffect(() => {
     // const day = moment().format();
     const day = new Date();
-    console.log(day);
     setDeadline(day);
   }, []);
 
@@ -220,6 +219,7 @@ function CreateQuiz() {
           </Grid>
         </Grid>
       </MDBox>
+
       <AddQuestion visible={addQuestion} setVisible={setAddQuestion} addQuestion={addNewQuestion} />
     </DashboardLayout>
   );

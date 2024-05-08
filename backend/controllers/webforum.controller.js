@@ -13,7 +13,8 @@ const createForum = asyncHandler(async (req, res) => {
       title,
       content,
       createdBy,
-    });
+      uiType: Math.floor(Math.random() * 4)
+    })
     forum
       .save()
       .then((mRes) => {

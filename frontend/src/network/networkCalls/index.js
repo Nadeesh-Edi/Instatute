@@ -45,9 +45,24 @@ const getAttemptDetails = (params) => {
   return request({ url: `/quiz/getAttemptDetails/${params}`, method: "post", data: {} });
 };
 
-// Get attempted quiz details
+// Get Register
 const register = (params) => {
   return request({ url: `/user/createUser`, method: "post", data: params });
+};
+
+// Create web forum
+const createWebforum = (params) => {
+  return request({ url: `/webforum/createForum`, method: "post", data: params });
+};
+
+// Get webforums by creator
+const getMyWebforums = (params) => {
+  return request({ url: `/webforum/getMyForums`, method: "get", data: {} });
+};
+
+// Delete webforum
+const deleteWebforum = (params) => {
+  return request({ url: `/webforum/deleteForum/${params}`, method: "post", data: {} });
 };
 
 export {
@@ -61,4 +76,7 @@ export {
   submitQuiz,
   getAttemptDetails,
   register,
+  createWebforum,
+  getMyWebforums,
+  deleteWebforum,
 };

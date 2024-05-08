@@ -12,6 +12,10 @@ const webforumSchema = mongoose.Schema({
     createdBy: {
         type: String,
         required: true
+    },
+    uiType: {
+        type: Number,
+        required: true
     }
 }, {
     timestamps: true,

@@ -47,6 +47,8 @@ import AttemptQuiz from "layouts/quiz/attemptQuiz";
 import AttemptDetails from "layouts/quiz/attemptDetails";
 import SignUp from "layouts/authentication/sign-up";
 import Dashboard from "layouts/dashboard";
+import CreateWebforum from "layouts/webforum/createWebforum";
+import MyForums from "layouts/webforum/myForums";
 
 // Student Routes
 const studentRoutes = [
@@ -143,6 +145,22 @@ const staffRoutes = [
         component: <QuizAttempts />,
       },
     ],
+  },
+  {
+    type: "collapse",
+    name: "Create Webforum",
+    key: "createWebForum",
+    icon: <Icon fontSize="small">forum</Icon>,
+    route: "/createWebforum",
+    component: <CreateWebforum />,
+  },
+  {
+    type: "collapse",
+    name: "My Webforums",
+    key: "myWebforums",
+    icon: <Icon fontSize="small">forum</Icon>,
+    route: "/myWebforums",
+    component: <MyForums />,
   },
 ];
 
