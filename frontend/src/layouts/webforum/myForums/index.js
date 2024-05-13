@@ -34,7 +34,7 @@ function MyForums() {
     setShowDeleteConfirm(false);
     deleteWebforum(selectedForumId)
       .then((res) => {
-        alert.success("Successfully created", {
+        alert.success("Successfully Deleted", {
           onClose: () => {
             window.location.reload();
           },

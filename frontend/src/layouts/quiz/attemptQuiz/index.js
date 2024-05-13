@@ -12,12 +12,14 @@ import Alert from "@mui/material/Alert";
 import { useAlert } from "react-alert";
 import Snackbar from "@mui/material/Snackbar";
 import QuizTimer from "./components/quizTimer";
+import { useNavigate } from "react-router-dom";
 
 function AttemptQuiz() {
   const [quiz, setQuiz] = useState({});
   const [questions, setQuestions] = useState([]);
   const [answerState, setAnswerState] = useState([]);
   const [period, setPeriod] = useState(0);
+  const navigate = useNavigate();
 
   const alert = useAlert();
 
@@ -54,7 +56,11 @@ function AttemptQuiz() {
       answers: answersRef.current,
     };
     submitQuiz(params).then((res) => {
-      alert.success("Quiz has been submitted");
+      alert.success("Quiz has been submitted", {
+        onClose: () => {
+          navigate("/attemptDetails");
+        },
+      });
     });
   };
 

@@ -40,7 +40,7 @@ function AttemptDetails() {
                       <MDTypography variant="h3" gutterBottom>
                         {details.quiz.title}
                       </MDTypography>
-                      <MDTypography variant="h3" gutterBottom>
+                      <MDTypography variant="h5" gutterBottom>
                         {details.quiz.description}
                       </MDTypography>
                     </MDBox>
@@ -51,7 +51,7 @@ function AttemptDetails() {
                         SCORE :&nbsp;&nbsp;&nbsp;&nbsp;
                       </MDTypography>
                       <MDTypography variant="h1" color="error" gutterBottom>
-                        {details.score} %
+                        {details.score.toFixed(2)} %
                       </MDTypography>
                     </MDBox>
                   </Grid>

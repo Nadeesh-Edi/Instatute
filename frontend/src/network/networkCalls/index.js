@@ -65,6 +65,16 @@ const deleteWebforum = (params) => {
   return request({ url: `/webforum/deleteForum/${params}`, method: "post", data: {} });
 };
 
+// Get webforum details by id
+const getForumByID = (params) => {
+  return request({ url: `/webforum/getById/${params}`, method: "get", data: {} });
+};
+
+// Get all webforum
+const getAllForums = (params) => {
+  return request({ url: `/webforum/getForums`, method: "get", data: {} });
+};
+
 export {
   login,
   createQuiz,
@@ -79,4 +89,6 @@ export {
   createWebforum,
   getMyWebforums,
   deleteWebforum,
+  getForumByID,
+  getAllForums,
 };

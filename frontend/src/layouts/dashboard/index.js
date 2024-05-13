@@ -6,6 +6,7 @@ import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import StudentDashboard from "./studentDashboard";
 import StaffDashboard from "./staffDashboard";
+import DefaultDashboard from "./defaultDashboard";
 
 function Dashboard() {
   const userType = localStorage.getItem("type");
@@ -15,7 +16,7 @@ function Dashboard() {
       <MDBox pt={6} pb={3}>
         {userType == 2 && <StudentDashboard />}
         {userType == 1 && <StaffDashboard />}
-        {!userType && <StaffDashboard />}
+        {!userType && <DefaultDashboard />}
       </MDBox>
     </DashboardLayout>
   );

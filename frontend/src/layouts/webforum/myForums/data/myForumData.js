@@ -35,6 +35,12 @@ export default function data(deleteForum) {
       });
   }, []);
 
+  // Save id and open
+  const openForum = (id) => {
+    localStorage.setItem("forumId", id);
+    navigate("/webforumDetails");
+  };
+
   const Forum = ({ title, content }) => (
     <MDBox lineHeight={1} textAlign="left">
       <MDBox ml={2} lineHeight={1}>
@@ -63,7 +69,12 @@ export default function data(deleteForum) {
       ),
       action: (
         <div style={{ display: "flex" }}>
-          <Icon color="success" fontSize="medium" style={{ marginRight: 10, cursor: "pointer" }}>
+          <Icon
+            color="success"
+            fontSize="medium"
+            style={{ marginRight: 10, cursor: "pointer" }}
+            onClick={(e) => openForum(row._id)}
+          >
             visibility
           </Icon>
           <Icon

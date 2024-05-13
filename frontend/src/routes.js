@@ -49,6 +49,8 @@ import SignUp from "layouts/authentication/sign-up";
 import Dashboard from "layouts/dashboard";
 import CreateWebforum from "layouts/webforum/createWebforum";
 import MyForums from "layouts/webforum/myForums";
+import ReadForum from "layouts/webforum/readForum";
+import AllForums from "layouts/webforum/allForums";
 
 // Student Routes
 const studentRoutes = [
@@ -100,6 +102,31 @@ const studentRoutes = [
     icon: <Icon fontSize="small">quiz</Icon>,
     route: "/attemptedQuizList",
     component: <AttemptedQuizList />,
+  },
+  {
+    type: "collapse",
+    name: "Webforums",
+    key: "allWebforums",
+    icon: <Icon fontSize="small">forum</Icon>,
+    route: "/allWebforums",
+    collapse: [
+      {
+        type: "collapse",
+        name: "Webforums",
+        key: "allWebforums",
+        icon: <Icon fontSize="small">forum</Icon>,
+        route: "/allWebforums",
+        component: <AllForums />,
+      },
+      {
+        type: "collapse",
+        name: "AllWebforumDetails",
+        key: "AllWebforumDetails",
+        icon: <Icon fontSize="small">forum</Icon>,
+        route: "/allWebforumDetails",
+        component: <ReadForum />,
+      },
+    ],
   },
 ];
 
@@ -160,7 +187,24 @@ const staffRoutes = [
     key: "myWebforums",
     icon: <Icon fontSize="small">forum</Icon>,
     route: "/myWebforums",
-    component: <MyForums />,
+    collapse: [
+      {
+        type: "collapse",
+        name: "My Webforums",
+        key: "myWebforums",
+        icon: <Icon fontSize="small">forum</Icon>,
+        route: "/myWebforums",
+        component: <MyForums />,
+      },
+      {
+        type: "collapse",
+        name: "WebforumDetails",
+        key: "WebforumDetails",
+        icon: <Icon fontSize="small">forum</Icon>,
+        route: "/webforumDetails",
+        component: <ReadForum />,
+      },
+    ],
   },
 ];
 

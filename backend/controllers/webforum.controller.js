@@ -13,8 +13,8 @@ const createForum = asyncHandler(async (req, res) => {
       title,
       content,
       createdBy,
-      uiType: Math.floor(Math.random() * 4)
-    })
+      uiType: Math.floor(Math.random() * 4),
+    });
     forum
       .save()
       .then((mRes) => {
@@ -97,6 +97,21 @@ const deleteForum = asyncHandler(async (req, res) => {
   }
 });
 
+const getForumById = asyncHandler(async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const forum = await Webforums.findById(id);
+    if (!forum) return res.status(404).json({ error: "Webforum not found" });
+
+    const returnForum = await getResponseObj(forum)
+
+    return res.status(200).json(returnForum);
+  } catch (err) {
+    res.status(501).json({ error: err });
+  }
+});
+
 // Get the response object
 const getResponseObj = async (forum) => {
   let newForum = forum.toObject();
@@ -106,4 +121,11 @@ const getResponseObj = async (forum) => {
   return newForum;
 };
 
-export { createForum, getAll, getByCreator, editForum, deleteForum };
+export {
+  createForum,
+  getAll,
+  getByCreator,
+  editForum,
+  deleteForum,
+  getForumById,
+};

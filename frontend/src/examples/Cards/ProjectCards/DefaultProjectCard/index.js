@@ -113,7 +113,7 @@ function DefaultProjectCard({ image, label, title, description, action, authors 
           {action.type === "internal" ? (
             <MDButton
               component={Link}
-              to={action.route}
+              onClick={(e) => action.click(e)}
               variant="outlined"
               size="small"
               color={action.color}
@@ -152,7 +152,7 @@ DefaultProjectCard.propTypes = {
   description: PropTypes.string.isRequired,
   action: PropTypes.shape({
     type: PropTypes.oneOf(["external", "internal"]),
-    route: PropTypes.string.isRequired,
+    route: PropTypes.string,
     color: PropTypes.oneOf([
       "primary",
       "secondary",
@@ -165,6 +165,7 @@ DefaultProjectCard.propTypes = {
       "white",
     ]).isRequired,
     label: PropTypes.string.isRequired,
+    click: PropTypes.func,
   }).isRequired,
   authors: PropTypes.arrayOf(PropTypes.object),
 };

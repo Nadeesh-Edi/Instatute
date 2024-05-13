@@ -6,6 +6,7 @@ import Countdown from "react-countdown";
 
 function QuizTimer(props) {
   const [timerTime, setTimerTime] = useState(0);
+  const [fullTime, setFullTime] = useState(0);
   const completed = () => {
     props.timerFinished();
   };
@@ -19,6 +20,7 @@ function QuizTimer(props) {
   useEffect(() => {
     console.log("period", props.period);
     setTimerTime(props.period);
+    setFullTime(Date.now() + props.period);
   }, [props.period]);
 
   return (
@@ -26,12 +28,7 @@ function QuizTimer(props) {
       {timerTime != 0 && (
         <Card style={{ marginTop: 20 }}>
           <MDBox px={2} py={1} style={styles.timer}>
-            <Countdown
-              date={Date.now() + timerTime}
-              onComplete={completed}
-              onTick={onTimeChange}
-              autoStart
-            />
+            <Countdown date={fullTime} onComplete={completed} onTick={onTimeChange} autoStart />
           </MDBox>
         </Card>
       )}

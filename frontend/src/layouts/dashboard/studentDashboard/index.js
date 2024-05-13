@@ -8,8 +8,31 @@ import Card from "@mui/material/Card";
 // Images
 import questions from "assets/images/questions.jpg";
 import answers from "assets/images/answers.jpg";
+import webforums from "assets/images/bg-profile.jpeg";
+
+import { useNavigate } from "react-router-dom";
 
 function StudentDashboard() {
+  const navigate = useNavigate();
+
+  // Create quiz clicked
+  const quizClicked = (e) => {
+    e.preventDefault();
+    navigate("/newQuizList");
+  };
+
+  // Attempted quizes clicked
+  const attemptedQuizClicked = (e) => {
+    e.preventDefault();
+    navigate("/attemptedQuizList");
+  };
+
+  // Webforums clicked
+  const webforumsClicked = (e) => {
+    e.preventDefault();
+    navigate("/allWebforums");
+  };
+
   return (
     <MDBox mb={3}>
       <MDBox my={1} mx={2}>
@@ -29,6 +52,7 @@ function StudentDashboard() {
                 route: "/newQuizList",
                 color: "info",
                 label: "View",
+                click: quizClicked,
               }}
             />
           </Grid>
@@ -42,6 +66,21 @@ function StudentDashboard() {
                 route: "/attemptedQuizList",
                 color: "info",
                 label: "view",
+                click: attemptedQuizClicked,
+              }}
+            />
+          </Grid>
+          <Grid item xs={12} md={6} xl={3}>
+            <DefaultProjectCard
+              image={webforums}
+              title="Webforums"
+              description="Webforums that you can read and get extra knowledge."
+              action={{
+                type: "internal",
+                route: "/allWebforums",
+                color: "info",
+                label: "view",
+                click: webforumsClicked,
               }}
             />
           </Grid>
