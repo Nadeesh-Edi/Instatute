@@ -61,7 +61,7 @@ function AllForums() {
         <MDBox mb={3}>
           <MDBox my={1} mx={2}>
             <MDTypography variant="h3" fontWeight="regular">
-              QUIZES
+              WEBFORUMS
             </MDTypography>
           </MDBox>
           <MDBox p={2}>
